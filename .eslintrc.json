@@ -1,3 +1,48 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next/core-web-vitals", "prettier", "plugin:perfectionist/recommended-natural", "plugin:tailwindcss/recommended"],
+  "rules": {
+    "react-hooks/exhaustive-deps": "off",
+    "tailwindcss/classnames-order": "error",
+    "perfectionist/sort-imports": "off",
+    "perfectionist/sort-interfaces": [
+      "error",
+      {
+        "type": "natural",
+        "groups": ["unknown", "callback", "class", "children"],
+        "custom-groups": {
+          "callback": "on*",
+          "class": "className",
+          "children": "children"
+        }
+      }
+    ],
+    "perfectionist/sort-objects": [
+      "error",
+      {
+        "type": "natural",
+        "groups": ["unknown", "callback", "class", "children"],
+        "custom-groups": {
+          "callback": "on*",
+          "class": "className",
+          "children": "children"
+        }
+      }
+    ],
+    "perfectionist/sort-jsx-props": [
+      "error",
+      {
+        "type": "natural",
+        "ignore-case": true,
+        "groups": ["key", "ref", "unknown", "width", "height", "callback", "shorthand", "class"],
+        "custom-groups": {
+          "key": "key",
+          "ref": "ref",
+          "callback": "on*",
+          "class": "className",
+          "width": "width",
+          "height": "height"
+        }
+      }
+    ]
+  }
 }
