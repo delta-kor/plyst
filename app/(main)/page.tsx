@@ -1,5 +1,10 @@
 import MusicPlayer from '@/components/MusicPlayer';
+import PlayerProvider from '@/providers/PlayerProvider';
 
 export default function MainPage() {
-  return <MusicPlayer />;
+  return (
+    <PlayerProvider>
+      <MusicPlayer />
+    </PlayerProvider>
+  );
 }

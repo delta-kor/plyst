@@ -63,6 +63,7 @@ const config: Config = {
       48: '48px',
       64: '64px',
       72: '72px',
+      84: '84px',
     },
   },
 };
