@@ -1,16 +1,15 @@
 import { MusicStruct } from '@/lib/musics';
-import { getThumbnailUrl } from '@/lib/youtube';
+import { ReactNode } from 'react';
 
 interface Props {
   music: MusicStruct;
+  children: ReactNode;
 }
 
-export default function AlbumImageLarge({ music }: Props) {
+export default function AlbumImageLarge({ music, children }: Props) {
   return (
-    <img
-      alt={music.title}
-      src={getThumbnailUrl(music.id)}
-      className="aspect-square w-full max-w-[400px] rounded-16 object-cover"
-    />
+    <div className="aspect-square w-full max-w-[400px] shrink-0 overflow-hidden rounded-16 object-cover">
+      {children}
+    </div>
   );
 }
