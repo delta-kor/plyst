@@ -100,7 +100,7 @@ export default function MusicPlayer() {
       className="flex h-dvh w-dvw flex-col items-center justify-center gap-32 overflow-hidden px-32 transition-colors"
     >
       <div className="my-48 flex grow flex-col items-center justify-between gap-32 self-stretch md:max-h-[720px]">
-        {!isListMode && <AlbumImageLarge>{video}</AlbumImageLarge>}
+        {!isListMode && <AlbumImageLarge isPlaying={isPlaying}>{video}</AlbumImageLarge>}
         <div className="flex flex-col gap-24 self-stretch md:w-[400px] md:self-center">
           <div className="flex items-center justify-between">
             <div className="flex flex-col">

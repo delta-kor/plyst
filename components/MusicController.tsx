@@ -42,7 +42,9 @@ export default function MusicController({
     const rect = element.getBoundingClientRect();
     const x = clientX - rect.left;
     const percent = x / rect.width;
-    return duration * percent;
+    const time = duration * percent;
+
+    return Math.min(Math.max(time, 0), duration);
   }
 
   function handlePointerDown(e: ReactPointerEvent) {
@@ -96,7 +98,7 @@ export default function MusicController({
         </div>
         <div className="flex items-center justify-between text-14 font-500 text-white/30 transition-colors group-active:text-white">
           <div>{secondsToTime(layeredTime)}</div>
-          <div>{secondsToTime(duration)}</div>
+          <div>-{secondsToTime(duration - layeredTime)}</div>
         </div>
       </motion.div>
       <div className="flex items-center justify-center gap-52">
