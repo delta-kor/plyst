@@ -3,6 +3,7 @@
 import AlbumContent from '@/components/AlbumContent';
 import Icon from '@/components/Icon';
 import MusicController from '@/components/MusicController';
+import Playlist from '@/components/Playlist';
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import YouTube, { YouTubeEvent, YouTubePlayer } from 'react-youtube';
@@ -89,6 +90,10 @@ export default function MusicPlayer() {
     setIsListMode(prev => !prev);
   }
 
+  function handleMusicClick(index: number) {
+    setCurrentMusicIndex(index);
+  }
+
   return (
     <div
       style={{ background: currentMusic.color }}
@@ -109,6 +114,11 @@ export default function MusicPlayer() {
             className="size-full min-h-0"
           />
         </AlbumContent>
+        {isListMode && (
+          <div className="min-h-0 w-full grow basis-0 self-stretch overflow-y-hidden">
+            <Playlist currentMusicIndex={currentMusicIndex} onMusicClick={handleMusicClick} />
+          </div>
+        )}
         <div className="flex flex-col gap-24 self-stretch md:w-[400px] md:self-center">
           {!isListMode && (
             <div className="flex items-center justify-between">

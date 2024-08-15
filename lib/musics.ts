@@ -56,6 +56,13 @@ const MusicsData: MusicStruct[] = [
     id: 'HBqH4uJS0PU',
     title: 'Magnetic',
   },
+  {
+    artist: 'fromis9',
+    color: '#5E201C',
+    duration: 175,
+    id: 'MR2ela9evnk',
+    title: 'Supersonic',
+  },
 ];
 
 export default MusicsData;
