@@ -166,7 +166,7 @@ export default function MusicPlayer() {
           />
         </div>
       </div>
-      <title>{`${currentMusic.title} - Plyst`}</title>
+      <title>{`${currentMusic.title} (${currentMusic.artist}) - Plyst`}</title>
     </div>
   );
 }
