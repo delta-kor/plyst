@@ -1,8 +1,9 @@
 'use client';
 
-import AlbumImageLarge from '@/components/AlbumImageLarge';
+import AlbumContent from '@/components/AlbumContent';
 import Icon from '@/components/Icon';
 import MusicController from '@/components/MusicController';
+import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import YouTube, { YouTubeEvent, YouTubePlayer } from 'react-youtube';
 import MusicsData from '../lib/musics';
@@ -84,15 +85,9 @@ export default function MusicPlayer() {
     isSeekedRef.current = true;
   }
 
-  const video = (
-    <YouTube
-      iframeClassName="size-full min-h-0"
-      opts={{ playerVars: { autoplay: 1, controls: 0, modestbranding: 1, playsinline: 1 } }}
-      videoId={MusicsData[initialMusicIndex].id}
-      onReady={handleReady}
-      className="size-full min-h-0"
-    />
-  );
+  function handleListClick() {
+    setIsListMode(prev => !prev);
+  }
 
   return (
     <div
@@ -100,17 +95,47 @@ export default function MusicPlayer() {
       className="flex h-dvh w-dvw flex-col items-center justify-center gap-32 overflow-hidden px-32 transition-colors"
     >
       <div className="my-48 flex grow flex-col items-center justify-between gap-32 self-stretch md:max-h-[720px]">
-        {!isListMode && <AlbumImageLarge isPlaying={isPlaying}>{video}</AlbumImageLarge>}
+        <AlbumContent
+          currentMusic={currentMusic}
+          isListMode={isListMode}
+          isPlaying={isPlaying}
+          onListClick={handleListClick}
+        >
+          <YouTube
+            iframeClassName="size-full min-h-0"
+            opts={{ playerVars: { autoplay: 0, controls: 0, modestbranding: 1, playsinline: 1 } }}
+            videoId={MusicsData[initialMusicIndex].id}
+            onReady={handleReady}
+            className="size-full min-h-0"
+          />
+        </AlbumContent>
         <div className="flex flex-col gap-24 self-stretch md:w-[400px] md:self-center">
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col">
-              <div className="text-28 font-700 text-white">{currentMusic.title}</div>
-              <div className="text-20 font-500 text-white/30">{currentMusic.artist}</div>
+          {!isListMode && (
+            <div className="flex items-center justify-between">
+              <div className="flex grow flex-col">
+                <motion.div layoutId="title" layout className="grow text-28 font-700 text-white">
+                  {currentMusic.title}
+                </motion.div>
+                <motion.div
+                  layoutId="artist"
+                  layout
+                  className="grow text-20 font-500 text-white/30"
+                >
+                  {currentMusic.artist}
+                </motion.div>
+              </div>
+              <motion.div
+                layoutId="list"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={handleListClick}
+                layout
+                className="flex cursor-pointer items-center justify-center rounded-full bg-white/10 p-8"
+              >
+                <Icon type="list" className="size-16 text-white" />
+              </motion.div>
             </div>
-            <div className="flex items-center justify-center rounded-full bg-white/10 p-8">
-              <Icon type="list" className="size-16 text-white" />
-            </div>
-          </div>
+          )}
           <MusicController
             currentTime={currentTime}
             duration={duration}
