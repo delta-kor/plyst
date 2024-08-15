@@ -10,7 +10,7 @@ export default function AlbumImageLarge({ music }: Props) {
     <img
       alt={music.title}
       src={getThumbnailUrl(music.id)}
-      className="aspect-square w-full rounded-16 object-cover"
+      className="aspect-square w-full max-w-[400px] rounded-16 object-cover"
     />
   );
 }

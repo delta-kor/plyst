@@ -2,6 +2,7 @@
 
 import AlbumImageLarge from '@/components/AlbumImageLarge';
 import Icon from '@/components/Icon';
+import MusicController from '@/components/MusicController';
 import { useState } from 'react';
 import MusicsData, { MusicStruct } from '../lib/musics';
 
@@ -13,10 +14,10 @@ export default function MusicPlayer() {
   return (
     <div
       style={{ background: currentMusic.color }}
-      className="flex h-dvh w-dvw flex-col justify-between overflow-hidden px-32 py-84"
+      className="flex h-dvh w-dvw flex-col items-center justify-between gap-32 overflow-hidden px-32 py-84 md:justify-center"
     >
       {!isListMode && <AlbumImageLarge music={currentMusic} />}
-      <div className="flex flex-col gap-24">
+      <div className="flex flex-col gap-24 self-stretch md:w-[400px] md:self-center">
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
             <div className="text-28 font-700 text-white">{currentMusic.title}</div>
@@ -26,6 +27,7 @@ export default function MusicPlayer() {
             <Icon type="list" className="size-16 text-white" />
           </div>
         </div>
+        <MusicController />
       </div>
     </div>
   );
