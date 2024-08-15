@@ -70,14 +70,14 @@ export default function MusicPlayer() {
     handleNext();
   }
 
-  function handleNext() {
-    if (!player) return;
-    setCurrentMusicIndex(prev => (prev + 1) % MusicsData.length);
-  }
-
   function handlePrev() {
     if (!player) return;
     setCurrentMusicIndex(prev => (prev - 1 + MusicsData.length) % MusicsData.length);
+  }
+
+  function handleNext() {
+    if (!player) return;
+    setCurrentMusicIndex(prev => (prev + 1) % MusicsData.length);
   }
 
   function handleControl() {

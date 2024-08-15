@@ -1,5 +1,6 @@
 import Icon from '@/components/Icon';
 import { motion } from 'framer-motion';
+import Lottie, { LottieRefCurrentProps } from 'lottie-react';
 import { PointerEvent as ReactPointerEvent, useRef, useState } from 'react';
 
 interface Props {
@@ -32,6 +33,9 @@ export default function MusicController({
 
   const isSeekingRef = useRef<boolean>(false);
   const seekingTimeRef = useRef<number>(0);
+
+  const prevRef = useRef<LottieRefCurrentProps>(null);
+  const nextRef = useRef<LottieRefCurrentProps>(null);
 
   const barRef = useRef<HTMLDivElement>(null);
 
@@ -78,6 +82,16 @@ export default function MusicController({
     seekingTimeRef.current = time;
   }
 
+  function handlePrev() {
+    prevRef.current?.goToAndPlay(0);
+    onPrev();
+  }
+
+  function handleNext() {
+    nextRef.current?.goToAndPlay(0);
+    onNext();
+  }
+
   const layeredTime = isSeeking ? seekingTime : currentTime;
   const percent = (layeredTime / (duration || 1)) * 100;
 
@@ -105,16 +119,21 @@ export default function MusicController({
         <motion.div
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          onClick={onPrev}
-          className="-m-12 rounded-full p-12 transition-colors active:bg-white/10"
+          onClick={handlePrev}
+          className="-m-12 cursor-pointer rounded-full p-12 transition-colors active:bg-white/10"
         >
-          <Icon type="prev" className="size-40 text-white" />
+          <Lottie
+            animationData={require('@/public/lottie/play-prev.json')}
+            autoplay={false}
+            loop={false}
+            lottieRef={prevRef}
+          />
         </motion.div>
         <motion.div
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={onControl}
-          className="-m-8 rounded-full p-8 transition-colors active:bg-white/10"
+          className="-m-8 cursor-pointer rounded-full p-8 transition-colors active:bg-white/10"
         >
           <motion.div
             key={isPlaying ? 'pause' : 'play'}
@@ -128,10 +147,15 @@ export default function MusicController({
         <motion.div
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          onClick={onNext}
-          className="-m-12 rounded-full p-12 transition-colors active:bg-white/10"
+          onClick={handleNext}
+          className="-m-12 cursor-pointer rounded-full p-12 transition-colors active:bg-white/10"
         >
-          <Icon type="next" className="size-40 text-white" />
+          <Lottie
+            animationData={require('@/public/lottie/play-next.json')}
+            autoplay={false}
+            loop={false}
+            lottieRef={nextRef}
+          />
         </motion.div>
       </div>
     </div>
