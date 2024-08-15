@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from 'react';
 import YouTube, { YouTubeEvent, YouTubePlayer } from 'react-youtube';
 import MusicsData from '../lib/musics';
 
-const initialMusicIndex = 1;
+const initialMusicIndex = 0;
 
 export default function MusicPlayer() {
   const [currentMusicIndex, setCurrentMusicIndex] = useState<number>(initialMusicIndex);
@@ -44,6 +44,8 @@ export default function MusicPlayer() {
     if (!player) return;
 
     const playerState = player.getPlayerState();
+    if (typeof playerState === 'undefined') return;
+
     const isPlaying = playerState === 1 || playerState === 3;
     setIsPlaying(isPlaying);
 
@@ -64,11 +66,17 @@ export default function MusicPlayer() {
     setPlayer(e.target);
   }
 
+  function handleEnd() {
+    handleNext();
+  }
+
   function handleNext() {
+    if (!player) return;
     setCurrentMusicIndex(prev => (prev + 1) % MusicsData.length);
   }
 
   function handlePrev() {
+    if (!player) return;
     setCurrentMusicIndex(prev => (prev - 1 + MusicsData.length) % MusicsData.length);
   }
 
@@ -110,6 +118,7 @@ export default function MusicPlayer() {
             iframeClassName="size-full min-h-0"
             opts={{ playerVars: { autoplay: 0, controls: 0, modestbranding: 1, playsinline: 1 } }}
             videoId={MusicsData[initialMusicIndex].id}
+            onEnd={handleEnd}
             onReady={handleReady}
             className="size-full min-h-0"
           />
@@ -157,6 +166,7 @@ export default function MusicPlayer() {
           />
         </div>
       </div>
+      <title>{`${currentMusic.title} - Plyst`}</title>
     </div>
   );
 }

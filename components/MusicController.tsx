@@ -79,7 +79,7 @@ export default function MusicController({
   }
 
   const layeredTime = isSeeking ? seekingTime : currentTime;
-  const percent = (layeredTime / duration) * 100;
+  const percent = (layeredTime / (duration || 1)) * 100;
 
   return (
     <div className="flex flex-col gap-48">
