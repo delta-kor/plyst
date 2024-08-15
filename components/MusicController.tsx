@@ -106,7 +106,7 @@ export default function MusicController({
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={onPrev}
-          className="-m-12 rounded-full p-12 active:bg-white/10"
+          className="-m-12 rounded-full p-12 transition-colors active:bg-white/10"
         >
           <Icon type="prev" className="size-40 text-white" />
         </motion.div>
@@ -129,7 +129,7 @@ export default function MusicController({
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={onNext}
-          className="-m-12 rounded-full p-12 active:bg-white/10"
+          className="-m-12 rounded-full p-12 transition-colors active:bg-white/10"
         >
           <Icon type="next" className="size-40 text-white" />
         </motion.div>
