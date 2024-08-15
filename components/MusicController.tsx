@@ -118,7 +118,7 @@ export default function MusicController({
       <div className="flex items-center justify-center gap-52">
         <motion.div
           whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileTap={{ scale: 0.8 }}
           onClick={handlePrev}
           className="-m-12 cursor-pointer rounded-full p-12 transition-colors active:bg-white/10"
         >
@@ -127,6 +127,7 @@ export default function MusicController({
             autoplay={false}
             loop={false}
             lottieRef={prevRef}
+            className="size-40"
           />
         </motion.div>
         <motion.div
@@ -146,7 +147,7 @@ export default function MusicController({
         </motion.div>
         <motion.div
           whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileTap={{ scale: 0.8 }}
           onClick={handleNext}
           className="-m-12 cursor-pointer rounded-full p-12 transition-colors active:bg-white/10"
         >
@@ -155,6 +156,7 @@ export default function MusicController({
             autoplay={false}
             loop={false}
             lottieRef={nextRef}
+            className="size-40"
           />
         </motion.div>
       </div>
