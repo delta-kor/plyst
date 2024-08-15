@@ -1,6 +1,7 @@
 import MusicsData from '@/lib/musics';
 import { getThumbnailUrl } from '@/lib/youtube';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useRef } from 'react';
 
 interface Props {
   currentMusicIndex: number;
@@ -8,20 +9,25 @@ interface Props {
 }
 
 export default function Playlist({ currentMusicIndex, onMusicClick }: Props) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   const musics = [
     ...MusicsData.slice(currentMusicIndex + 1),
     ...MusicsData.slice(0, currentMusicIndex),
   ];
-  const currentMusic = MusicsData[currentMusicIndex];
 
   function handleMusicClick(musicId: string) {
     const index = MusicsData.findIndex(music => music.id === musicId);
     if (index === -1) return;
     onMusicClick(index);
+
+    if (!scrollRef.current) return;
+    scrollRef.current.scrollTo({ behavior: 'instant', top: 0 });
   }
 
   return (
     <motion.div
+      ref={scrollRef}
       animate={{ opacity: 1, transition: { delay: 0.1, duration: 0.3, ease: 'circOut' }, y: 0 }}
       initial={{ opacity: 0, y: 300 }}
       className="scrollbar-hide mx-auto flex size-full flex-col gap-12 self-stretch overflow-y-scroll md:max-w-[400px]"
