@@ -26,4 +26,6 @@ body {
 
   background: #000000;
   color: #ffffff;
+
+  touch-action: none;
 }

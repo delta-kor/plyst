@@ -19,6 +19,7 @@ export default function MusicPlayer() {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   const intervalRef = useRef<any>(null);
+  const isSeekedRef = useRef<boolean>(false);
 
   const currentMusic = MusicsData[currentMusicIndex];
 
@@ -40,15 +41,21 @@ export default function MusicPlayer() {
   function updateCurrentTime() {
     if (!player) return;
 
-    const currentTime = player.getCurrentTime() || 0;
-    setCurrentTime(currentTime);
+    const playerState = player.getPlayerState();
+    const isPlaying = playerState === 1 || playerState === 3;
+    setIsPlaying(isPlaying);
 
     const duration = player.getDuration() || 0;
     setDuration(duration);
 
-    const playerState = player.getPlayerState();
-    const isPlaying = playerState === 1 || playerState === 3;
-    setIsPlaying(isPlaying);
+    if (!isSeekedRef.current) {
+      const currentTime = player.getCurrentTime() || 0;
+      setCurrentTime(currentTime);
+    }
+
+    if (isPlaying) {
+      isSeekedRef.current = false;
+    }
   }
 
   function handleReady(e: YouTubeEvent) {
@@ -72,6 +79,9 @@ export default function MusicPlayer() {
   function handleSeek(time: number) {
     if (!player) return;
     player.seekTo(time, true);
+
+    setCurrentTime(time);
+    isSeekedRef.current = true;
   }
 
   const video = (
@@ -89,7 +99,7 @@ export default function MusicPlayer() {
       style={{ background: currentMusic.color }}
       className="flex h-dvh w-dvw flex-col items-center justify-center gap-32 overflow-hidden px-32 transition-colors"
     >
-      <div className="my-36 flex grow flex-col items-center justify-between gap-32 self-stretch md:max-h-[720px]">
+      <div className="my-48 flex grow flex-col items-center justify-between gap-32 self-stretch md:max-h-[720px]">
         {!isListMode && <AlbumImageLarge>{video}</AlbumImageLarge>}
         <div className="flex flex-col gap-24 self-stretch md:w-[400px] md:self-center">
           <div className="flex items-center justify-between">
