@@ -7,8 +7,10 @@ import { useEffect, useRef, useState } from 'react';
 import YouTube, { YouTubeEvent, YouTubePlayer } from 'react-youtube';
 import MusicsData from '../lib/musics';
 
+const initialMusicIndex = 1;
+
 export default function MusicPlayer() {
-  const [currentMusicIndex, setCurrentMusicIndex] = useState<number>(1);
+  const [currentMusicIndex, setCurrentMusicIndex] = useState<number>(initialMusicIndex);
   const [isListMode, setIsListMode] = useState<boolean>(false);
 
   const [player, setPlayer] = useState<YouTubePlayer | null>(null);
@@ -25,13 +27,23 @@ export default function MusicPlayer() {
     return () => clearInterval(intervalRef.current);
   }, [player]);
 
+  useEffect(() => {
+    if (!player) return;
+
+    const videoUrl = player.getVideoUrl();
+    if (!videoUrl) return;
+
+    const currentVideoId = player.getVideoUrl().split('v=')[1];
+    if (currentMusic.id !== currentVideoId) player.loadVideoById(currentMusic.id, 0);
+  }, [currentMusicIndex, player]);
+
   function updateCurrentTime() {
     if (!player) return;
 
-    const currentTime = player.getCurrentTime();
+    const currentTime = player.getCurrentTime() || 0;
     setCurrentTime(currentTime);
 
-    const duration = player.getDuration();
+    const duration = player.getDuration() || 0;
     setDuration(duration);
 
     const playerState = player.getPlayerState();
@@ -65,8 +77,8 @@ export default function MusicPlayer() {
   const video = (
     <YouTube
       iframeClassName="size-full"
-      opts={{ playerVars: { autoplay: 0 } }}
-      videoId={currentMusic.id}
+      opts={{ playerVars: { autoplay: 1, controls: 0, modestbranding: 1, playsinline: 1 } }}
+      videoId={MusicsData[initialMusicIndex].id}
       onReady={handleReady}
       className="size-full"
     />
@@ -75,9 +87,9 @@ export default function MusicPlayer() {
   return (
     <div
       style={{ background: currentMusic.color }}
-      className="flex h-dvh w-dvw flex-col items-center justify-between gap-32 overflow-hidden px-32 py-84 md:justify-center"
+      className="flex h-dvh w-dvw flex-col items-center justify-between gap-32 overflow-hidden px-32 py-84 transition-colors md:justify-center"
     >
-      {!isListMode && <AlbumImageLarge music={currentMusic}>{video}</AlbumImageLarge>}
+      {!isListMode && <AlbumImageLarge>{video}</AlbumImageLarge>}
       <div className="flex flex-col gap-24 self-stretch md:w-[400px] md:self-center">
         <div className="flex items-center justify-between">
           <div className="flex flex-col">

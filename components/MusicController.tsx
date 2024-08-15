@@ -32,7 +32,6 @@ export default function MusicController({
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const percent = x / rect.width;
-    console.log(percent);
     const time = duration * percent;
     onSeek(time);
   }
