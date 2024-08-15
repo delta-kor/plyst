@@ -114,7 +114,7 @@ export default function MusicController({
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={onControl}
-          className="-m-8 rounded-full p-8 active:bg-white/10"
+          className="-m-8 rounded-full p-8 transition-colors active:bg-white/10"
         >
           <motion.div
             key={isPlaying ? 'pause' : 'play'}
