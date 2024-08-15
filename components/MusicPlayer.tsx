@@ -76,39 +76,41 @@ export default function MusicPlayer() {
 
   const video = (
     <YouTube
-      iframeClassName="size-full"
+      iframeClassName="size-full min-h-0"
       opts={{ playerVars: { autoplay: 1, controls: 0, modestbranding: 1, playsinline: 1 } }}
       videoId={MusicsData[initialMusicIndex].id}
       onReady={handleReady}
-      className="size-full"
+      className="size-full min-h-0"
     />
   );
 
   return (
     <div
       style={{ background: currentMusic.color }}
-      className="flex h-dvh w-dvw flex-col items-center justify-between gap-32 overflow-hidden px-32 py-84 transition-colors md:justify-center"
+      className="flex h-dvh w-dvw flex-col items-center justify-center gap-32 overflow-hidden px-32 transition-colors"
     >
-      {!isListMode && <AlbumImageLarge>{video}</AlbumImageLarge>}
-      <div className="flex flex-col gap-24 self-stretch md:w-[400px] md:self-center">
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col">
-            <div className="text-28 font-700 text-white">{currentMusic.title}</div>
-            <div className="text-20 font-500 text-white/30">{currentMusic.artist}</div>
+      <div className="my-36 flex grow flex-col items-center justify-between gap-32 self-stretch md:max-h-[720px]">
+        {!isListMode && <AlbumImageLarge>{video}</AlbumImageLarge>}
+        <div className="flex flex-col gap-24 self-stretch md:w-[400px] md:self-center">
+          <div className="flex items-center justify-between">
+            <div className="flex flex-col">
+              <div className="text-28 font-700 text-white">{currentMusic.title}</div>
+              <div className="text-20 font-500 text-white/30">{currentMusic.artist}</div>
+            </div>
+            <div className="flex items-center justify-center rounded-full bg-white/10 p-8">
+              <Icon type="list" className="size-16 text-white" />
+            </div>
           </div>
-          <div className="flex items-center justify-center rounded-full bg-white/10 p-8">
-            <Icon type="list" className="size-16 text-white" />
-          </div>
+          <MusicController
+            currentTime={currentTime}
+            duration={duration}
+            isPlaying={isPlaying}
+            onControl={handleControl}
+            onNext={handleNext}
+            onPrev={handlePrev}
+            onSeek={handleSeek}
+          />
         </div>
-        <MusicController
-          currentTime={currentTime}
-          duration={duration}
-          isPlaying={isPlaying}
-          onControl={handleControl}
-          onNext={handleNext}
-          onPrev={handlePrev}
-          onSeek={handleSeek}
-        />
       </div>
     </div>
   );

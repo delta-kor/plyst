@@ -1,4 +1,5 @@
 import Icon from '@/components/Icon';
+import { motion } from 'framer-motion';
 import { MouseEvent } from 'react';
 
 interface Props {
@@ -48,13 +49,30 @@ export default function MusicController({
         </div>
       </div>
       <div className="flex items-center justify-center gap-52">
-        <Icon type="prev" onClick={onPrev} className="size-40 text-white" />
-        <Icon
-          type={isPlaying ? 'pause' : 'play'}
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={onPrev}
+          className="-m-12 rounded-full p-12 active:bg-white/10"
+        >
+          <Icon type="prev" className="size-40 text-white" />
+        </motion.div>
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
           onClick={onControl}
-          className="size-56 text-white"
-        />
-        <Icon type="next" onClick={onNext} className="size-40 text-white" />
+          className="-m-8 rounded-full p-8 active:bg-white/10"
+        >
+          <Icon type={isPlaying ? 'pause' : 'play'} className="size-56 text-white" />
+        </motion.div>
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={onNext}
+          className="-m-12 rounded-full p-12 active:bg-white/10"
+        >
+          <Icon type="next" className="size-40 text-white" />
+        </motion.div>
       </div>
     </div>
   );
