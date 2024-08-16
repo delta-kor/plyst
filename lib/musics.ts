@@ -57,6 +57,13 @@ const MusicsData: MusicStruct[] = [
     title: 'Magnetic',
   },
   {
+    artist: 'ITZY',
+    color: '#6E1B15',
+    duration: 195,
+    id: 'Vq1PNZkUQjg',
+    title: 'UNTOUCHABLE',
+  },
+  {
     artist: 'tripleS',
     color: '#0B1222',
     duration: 188,
@@ -118,6 +125,13 @@ const MusicsData: MusicStruct[] = [
     duration: 184,
     id: 'gTj__Sfn6Y0',
     title: 'Diamond',
+  },
+  {
+    artist: 'EVERGLOW',
+    color: '#130F51',
+    duration: 199,
+    id: 'vVMdYpOVkdA',
+    title: 'ZOMBIE',
   },
   {
     artist: 'WOOAH',

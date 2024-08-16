@@ -105,7 +105,7 @@ export default function MusicPlayer() {
   return (
     <div
       style={{ background: currentMusic.color }}
-      className="flex h-dvh w-dvw flex-col items-center justify-center gap-32 overflow-hidden px-32 transition-colors"
+      className="flex h-dvh w-dvw flex-col items-center justify-center gap-32 overflow-hidden px-32 transition-colors duration-300"
     >
       <div className="my-48 flex grow flex-col items-center justify-between gap-32 self-stretch md:max-h-[720px]">
         <AlbumContent
